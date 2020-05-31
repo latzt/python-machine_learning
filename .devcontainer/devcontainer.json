@@ -1,0 +1,10 @@
+{
+  "name": "python:machine_learning",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "python",
+  "workspaceFolder": "/usr/src/app",
+  "extensions": [
+    "ms-python.python",
+    "VisualStudioExptTeam.vscodeintellicode"
+  ]
+}

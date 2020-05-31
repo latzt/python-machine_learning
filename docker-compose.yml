@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  python:
+    image: machine_learning
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000 # Flask Application
+      - 5001:5001 # Flask Application while running in debug mode
+    volumes:
+      - ./:/usr/src/app/:cached
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+    tty: true
+    # command: sleep infinity

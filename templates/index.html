@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Neuronal network with backquery</title>
+    <script src="{{ url_for('static', filename='js/canvas.js') }}" type="module"></script>
+</head>
+<body>
+
+    <div>
+        <h3>Input</h3>
+        <div id="input">
+            <canvas id="canvas" width="28" height="28" style="border:2px solid;"></canvas>
+            <a href="#" id="query">Query the network</a>
+        </div>
+        <h3>Result</h3>
+        <div id="result" style="display: none;">
+            <!-- <img id="user-input" src="" width="56" height="56"> -->
+            <img id="result-image" src="" width="112" height="112">
+            <p id="result-message"></p>
+        </div>
+    </div>
+    
+    <script type="module">
+        import * as canvas from "{{ url_for('static', filename='js/canvas.js') }}";
+
+        const query = async() => {
+
+            let blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            let response = await fetch('http://127.0.0.1:5000/query', {
+                method: 'POST',
+                body: blob
+            });
+
+            let result = await response.json();
+            console.log(result);
+
+            document.querySelector("#result").style.display = "block";
+            // document.querySelector("#user-input").src = canvas.toDataURL("image/png");
+            document.querySelector("#result-image").src = result.image;
+            document.querySelector("#result-message").innerHTML = result.message;
+
+            canvas.erase();
+        }
+
+
+        window.addEventListener('load', canvas.init);
+        document.querySelector('#query').addEventListener('click', query);
+
+    </script>
+
+</body>
+</html>

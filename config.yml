@@ -1,0 +1,10 @@
+# Node configuration for recognizing 28x28 monochrome images.
+input_nodes: 784
+hidden_nodes: 200
+output_nodes: 10
+learning_rate: 0.01
+epochs: 10
+
+# Has 0.9666% accuracy.
+kernel: "kernel/784_200_10_9666.h5"
+mnist_test_data_file: "mnist_dataset/mnist_test_10.csv"
